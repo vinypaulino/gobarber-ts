@@ -1,9 +1,9 @@
-import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 
 import User from '../infra/typeorm/entities/User';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
     name: string;
@@ -12,12 +12,10 @@ interface IRequest {
 }
 
 class CreateUserService {
-    public async execute({ name, email, password }: IRequest): Promise<User> {
-        const usersRepository = getRepository(User);
+    constructor(private usersRepository: IUsersRepository) { }
 
-        const checkUserExiste = await usersRepository.findOne({
-            where: { email },
-        });
+    public async execute({ name, email, password }: IRequest): Promise<User> {
+        const checkUserExiste = await this.usersRepository.findByEmail(email);
 
         if (checkUserExiste) {
             throw new AppError('Email address already used.');
@@ -25,13 +23,11 @@ class CreateUserService {
 
         const hashedPassoword = await hash(password, 8);
 
-        const user = usersRepository.create({
+        const user = await this.usersRepository.create({
             name,
             email,
             password: hashedPassoword,
         });
-
-        await usersRepository.save(user);
 
         return user;
     }
