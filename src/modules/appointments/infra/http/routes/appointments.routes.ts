@@ -6,13 +6,13 @@ import AppointmentsController from '../controllers/AppointmentsController';
 const appointmentsRouter = Router();
 const appointmentsController = new AppointmentsController();
 
-appointmentsRouter.use(ensureAuthenticated);
+//appointmentsRouter.use(ensureAuthenticated);
 
-// appointmentsRouter.get('/', async (_, response) => {
-//     const appointments = await this.appointmentsRepository.find();
+ appointmentsRouter.get('/', async (_, response) => {
+     const appointments = ['hello'];
 
-//     return response.json(appointments);
-// });
+     return response.json(appointments);
+ });
 
 appointmentsRouter.post('/', appointmentsController.create);
 
