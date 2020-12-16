@@ -44,7 +44,12 @@
                 }
             }
         ],
-        "prettier/prettier": "error",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ],
         "class-methods-use-this": "off",
         "camelcase": "off",
         "no-useless-constructor": "off",
