@@ -21,7 +21,6 @@ describe('UpdateUserAvatar', () => {
         await updateUserAvatar.execute({
             user_id: user.id,
             avatarFileName: 'avatar.jpg',
-
         });
 
         expect(user.avatar).toBe('avatar.jpg');
@@ -71,6 +70,4 @@ describe('UpdateUserAvatar', () => {
 
         expect(user.avatar).toBe('avatar2.jpg');
     });
-
-
 });
