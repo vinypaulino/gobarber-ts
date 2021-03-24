@@ -20,8 +20,8 @@ class AuthenticateUserService {
         private usersRepository: IUsersRepository,
 
         @inject('HashProvider')
-        private hashProvider: IHashProvider,
-    ) { }
+        private hashProvider: IHashProvider
+    ) {}
 
     public async execute({
         email,
@@ -35,7 +35,7 @@ class AuthenticateUserService {
 
         const passwordMatched = await this.hashProvider.compareHash(
             password,
-            user.password,
+            user.password
         );
 
         if (!passwordMatched) {
