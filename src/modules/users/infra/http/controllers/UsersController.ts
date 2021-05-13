@@ -3,12 +3,8 @@ import { container } from 'tsyringe';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 
-// eslint-disable-next-line prettier/prettier
 export default class UsersController {
-    public async create(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
+    public async create(request: Request, response: Response): Promise<Response> {
         try {
             const { name, email, password } = request.body;
             const createUser = container.resolve(CreateUserService);
@@ -18,7 +14,9 @@ export default class UsersController {
                 email,
                 password,
             });
+
             delete user.password;
+
             return response.json(user);
         } catch (error) {
             return response.status(400).json({ error: error.message });
